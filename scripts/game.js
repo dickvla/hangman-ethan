@@ -17,4 +17,16 @@ function showPlaceForWord() {
     document.querySelector('.word-display').innerHTML = letterHtml.join('')
 }
 
+function showKeyboard() {
+    for (let i = 65; i <= 90; i++) {
+        const button = document.createElement("button");
+        button.innerText = String.fromCharCode(i);
+        keyboardDiv.appendChild(button);
+        //button.addEventListener("click", (e) => initGame(e.target, String.fromCharCode(i)))
+        button.addEventListener("click", (e) => 
+            console.log(String.fromCharCode(i)))
+    }
+}
+
 showPlaceForWord() // do it
+showKeyboard()
