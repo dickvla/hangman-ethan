@@ -1,5 +1,5 @@
 const keyboardDiv = document.querySelector(".keyboard");
-const word = 'Happy!';
+const word = 'banana';
 
 function showPlaceForWord() {
     // Create element for placing a letter
@@ -9,7 +9,7 @@ function showPlaceForWord() {
         console.log('index; ', index);
         console.log(word[index]);
         
-        letterHtml.push(`<li class="letter">${word[index]}</li>`);
+        letterHtml.push(`<li class="letter"> </li>`);
         index = index + 1;
     }
     
@@ -23,10 +23,24 @@ function showKeyboard() {
         button.innerText = String.fromCharCode(i);
         keyboardDiv.appendChild(button);
         //button.addEventListener("click", (e) => initGame(e.target, String.fromCharCode(i)))
-        button.addEventListener("click", (e) => 
-            console.log(String.fromCharCode(i)))
+        button.addEventListener("click", (e) => {
+            console.log(String.fromCharCode(i));
+            useKeyboard(e);
+        })
     }
 }
 
+function useKeyboard(evt) {
+    // show letter clicked
+    console.log(evt.target.innerHTML);
+    // check if letter is in word
+    if (word.includes(evt.target.innerHTML)) {
+        for(let i=0;i++;i<word.length){
+            if (word[i]=== evt.target.innerHTML){
+                
+            }
+        }
+    }
+}
 showPlaceForWord() // do it
 showKeyboard()
