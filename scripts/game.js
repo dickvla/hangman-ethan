@@ -1,5 +1,9 @@
 const keyboardDiv = document.querySelector(".keyboard");
+const wordDisplay = document.querySelector(".word-display");
+const hangmanBox = document.querySelector(".hangman-box");
+const hangmanBoxImage = document.querySelector(".hangman-box img");
 const word = 'banana';
+let incorrect = 0;
 
 const fruits = ['apple', 'banana', 'orange', 'kiwifruit', 'mandarin']
 
@@ -34,14 +38,24 @@ function showKeyboard() {
 
 function useKeyboard(evt) {
     // show letter clicked
-    console.log(evt.target.innerHTML);
+    const letter = evt.target.innerHTML.toLowerCase();
+    console.log(letter);
     // check if letter is in word
-    if (word.includes(evt.target.innerHTML)) {
-        for(let i=0;i++;i<word.length){
-            if (word[i]=== evt.target.innerHTML){
-                
+    if (word.includes(letter)) {
+        // Yes it is
+
+        // loop over all letters in word
+        for(let i=0;i<word.length; i++){
+            // does the letter clicked match the letter in the word?
+            if (word[i] === letter){
+                // Yes, show the letter
+                wordDisplay.querySelectorAll("li")[i].innerText = letter;
             }
         }
+    } else {
+        // The letter is not in the word
+        incorrect++;
+        hangmanBoxImage.src = `assets/images/hangman-${incorrect}.svg`
     }
 }
 showPlaceForWord() // do it
