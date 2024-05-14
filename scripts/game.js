@@ -1,6 +1,8 @@
 const keyboardDiv = document.querySelector(".keyboard");
 const word = 'banana';
 
+const fruits = ['apple', 'banana', 'orange', 'kiwifruit', 'mandarin']
+
 function showPlaceForWord() {
     // Create element for placing a letter
     let index = 0;
