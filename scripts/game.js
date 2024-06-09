@@ -4,13 +4,13 @@ const hangmanBox = document.querySelector(".hangman-box");
 const hangmanBoxImage = document.querySelector(".hangman-box img");
 const gameModal = document.querySelector(".game-modal");
 
-const word = 'banana';
+let word = 'rainbows';
 let incorrect = 0;
 let correctLettersShown = 0;
 const maxNumberOfGuesses = 6;
 
 const fruits = ['apple', 'banana', 'orange', 'kiwifruit', 'mandarin']
-
+const usedFruits = []
 function showPlaceForWord() {
     // Create element for placing a letter
     let index = 0;
@@ -30,6 +30,7 @@ function showPlaceForWord() {
 function showKeyboard() {
     for (let i = 65; i <= 90; i++) {
         const button = document.createElement("button");
+        button.classList.add('key')  
         button.innerText = String.fromCharCode(i);
         keyboardDiv.appendChild(button);
         //button.addEventListener("click", (e) => initGame(e.target, String.fromCharCode(i)))
@@ -40,6 +41,13 @@ function showKeyboard() {
     }
 }
 
+function enableAllKeys() {
+    const allKeys = document.getElementsByClassName('key')
+    for (let key of allKeys) {
+        key
+        .disabled = false
+    };
+}
 function useKeyboard(evt) {
     // disable letter on keyboard
     evt.target.disabled = true;
@@ -79,8 +87,45 @@ const gameOver = (isVictory) => {
     gameModal.querySelector("img").src = `assets/images/${isVictory ? 'victory' : 'lost'}.gif`;
     gameModal.querySelector("h4").innerText = isVictory ? 'Congrats!' : 'Game Over!';
     gameModal.querySelector("p").innerHTML = `${modalText} <b>${word}</b>`;
+    if (fruits.length === usedFruits.length) {
+        gameModal.querySelector('.play-again').style.display = 'none'
+        gameModal.querySelector('.game-finished').classList.remove('hide')
+    }
     gameModal.classList.add("show");
 }
 
-showPlaceForWord() // do it
+function showWord(index) {
+    if (index < 0 || index >= fruits.length) {
+        console.log ('invalid index ', index);
+        return;
+    }
+    console.log(fruits[index])
+} 
+
+function getRandomWord(){
+    let fruit = ''
+    let isUsed = true
+    while (isUsed) {
+        let index = Math.random();
+        index = index * fruits.length
+        index = Math.floor(index)
+        fruit = fruits[index]
+        // check if fruit is used
+        isUsed = usedFruits.includes(fruit)
+    }
+    usedFruits.push(fruit)
+    return fruit 
+}
+
+
+function runGame(){
+    incorrect = 0;
+    correctLettersShown = 0;
+
+    word = getRandomWord()
+    showPlaceForWord() // do it
+    gameModal.classList.remove("show");
+    enableAllKeys()
+}
 showKeyboard()
+runGame()
