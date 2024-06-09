@@ -73,7 +73,7 @@ function useKeyboard(evt) {
         }
     } else {
         // The letter is not in the word
-        incorrect++;
+        incorrect++; // Add 1 to incorrect
         hangmanBoxImage.src = `assets/images/hangman-${incorrect}.svg`;
         if (incorrect === maxNumberOfGuesses) {
             gameOver(false);
@@ -122,6 +122,7 @@ function runGame(){
     incorrect = 0;
     correctLettersShown = 0;
 
+    hangmanBoxImage.src = `assets/images/hangman-${incorrect}.svg`;
     word = getRandomWord()
     showPlaceForWord() // do it
     gameModal.classList.remove("show");
